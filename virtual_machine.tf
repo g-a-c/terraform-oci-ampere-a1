@@ -28,4 +28,10 @@ resource "oci_core_instance" "ampere_a1" {
     user_data = "${base64encode(file("${local.cloud_init_template_file}"))}"
     
   }
+
+  lifecycle {
+    ignore_changes = [
+      metadata
+    ]
+  }
 }
