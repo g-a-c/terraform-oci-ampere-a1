@@ -70,4 +70,28 @@ variable "cloud_init_template_file" {
   type        = string
 }
 
+variable "custom_ingress_rules" {
+  type = list(object({
+    protocol = string
+    source = string
+    udp_options = optional(object({
+      max = string
+      min = string
+    }))
+    tcp_options = optional(object({
+      max = string
+      min = string
+    }))
+    icmp_options = optional(object({
+      type = string
+      type = string
+    }))
+  }))
+  description = "Custom ingress rules to add to the security group"
+  default = []
+  # validation {
+  #   condition = anytrue([
 
+  #   ])
+  # }
+}

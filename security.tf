@@ -27,17 +27,6 @@ resource "oci_core_security_list" "ampere_security_list" {
       min = "3000"
     }
   }
-
-  ingress_security_rules {
-    protocol = "17"
-    source   = "0.0.0.0/0"
-
-    udp_options {
-      max = "60050"
-      min = "60000"
-    }
-  }
-
   ingress_security_rules {
     protocol = "6"
     source   = "0.0.0.0/0"
@@ -55,6 +44,35 @@ resource "oci_core_security_list" "ampere_security_list" {
     tcp_options {
       max = "80"
       min = "80"
+    }
+  }
+
+  dynamic "ingress_security_rules" {
+    for_each = var.custom_ingress_rules
+    content {
+      protocol = ingress_security_rules.protocol
+      source = ingress_security_rules.source
+      dynamic "tcp_options" {
+        for_each = ingress_security_rules.value.tcp_options
+        content {
+          max = tcp_options.max
+          min = tcp_options.min
+        }
+      }
+      dynamic "udp_options" {
+        for_each = ingress_security_rules.value.udp_options
+        content {
+          max = udp_options.max
+          min = udp_options.min
+        }
+      }
+      dynamic "icmp_options" {
+        for_each = ingress_security_rules.value.icmp_options
+        content {
+          type = icmp_options.type
+          code = icmp_options.code
+        }
+      }
     }
   }
 }
