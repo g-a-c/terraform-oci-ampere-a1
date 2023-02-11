@@ -47,32 +47,102 @@ resource "oci_core_security_list" "ampere_security_list" {
     }
   }
 
-  dynamic "ingress_security_rules" {
-    for_each = var.custom_ingress_rules
-    content {
-      protocol = ingress_security_rules.protocol
-      source = ingress_security_rules.source
-      dynamic "tcp_options" {
-        for_each = ingress_security_rules.value.tcp_options
-        content {
-          max = tcp_options.max
-          min = tcp_options.min
-        }
-      }
-      dynamic "udp_options" {
-        for_each = ingress_security_rules.value.udp_options
-        content {
-          max = udp_options.max
-          min = udp_options.min
-        }
-      }
-      dynamic "icmp_options" {
-        for_each = ingress_security_rules.value.icmp_options
-        content {
-          type = icmp_options.type
-          code = icmp_options.code
-        }
-      }
+  ingress_security_rules {
+    protocol = "6"
+    source   = "0.0.0.0/0"
+
+    tcp_options {
+      max = "443"
+      min = "443"
     }
   }
+
+  ingress_security_rules {
+    protocol = "17"
+    source   = "0.0.0.0/0"
+
+    udp_options {
+      max = "60050"
+      min = "60000"
+    }
+  }
+
+  ingress_security_rules {
+    protocol = "17"
+    source   = "0.0.0.0/0"
+
+    udp_options {
+      max = "20000"
+      min = "20000"
+    }
+  }
+
+  ingress_security_rules {
+    protocol = "17"
+    source   = "0.0.0.0/0"
+
+    udp_options {
+      max = "21027"
+      min = "21027"
+    }
+  }
+
+  ingress_security_rules {
+    protocol = "6"
+    source   = "0.0.0.0/0"
+
+    tcp_options {
+      max = "22067"
+      min = "22067"
+    }
+  }
+
+  ingress_security_rules {
+    protocol = "6"
+    source   = "0.0.0.0/0"
+
+    tcp_options {
+      max = "22070"
+      min = "22070"
+    }
+  }
+
+  ingress_security_rules {
+    protocol = "6"
+    source   = "0.0.0.0/0"
+
+    tcp_options {
+      max = "20000"
+      min = "20000"
+    }
+  }
+
+  # dynamic "ingress_security_rules" {
+  #   for_each = {for rule in var.custom_ingress_rules: rule.description => rule }
+  #   content {
+  #     protocol = ingress_security_rules.value.protocol
+  #     source = ingress_security_rules.value.source
+  #     dynamic "tcp_options" {
+  #       for_each = [ingress_security_rules.value.tcp_options]
+  #       content {
+  #         max = tcp_options.value.max
+  #         min = tcp_options.value.min
+  #       }
+  #     }
+  #     dynamic "udp_options" {
+  #       for_each = [ingress_security_rules.value.udp_options]
+  #       content {
+  #         max = udp_options.value.max
+  #         min = udp_options.value.min
+  #       }
+  #     }
+  #     dynamic "icmp_options" {
+  #       for_each = [ingress_security_rules.value.icmp_options]
+  #       content {
+  #         type = icmp_options.value.type
+  #         code = icmp_options.value.code
+  #       }
+  #     }
+  #   }
+  # }
 }

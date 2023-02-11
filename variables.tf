@@ -70,28 +70,33 @@ variable "cloud_init_template_file" {
   type        = string
 }
 
-variable "custom_ingress_rules" {
-  type = list(object({
-    protocol = string
-    source = string
-    udp_options = optional(object({
-      max = string
-      min = string
-    }))
-    tcp_options = optional(object({
-      max = string
-      min = string
-    }))
-    icmp_options = optional(object({
-      type = string
-      type = string
-    }))
-  }))
-  description = "Custom ingress rules to add to the security group"
-  default = []
-  # validation {
-  #   condition = anytrue([
-
-  #   ])
-  # }
-}
+# variable "custom_ingress_rules" {
+#   type = list(object({
+#     description = string
+#     protocol = string
+#     source = string
+#     udp_options = optional(object({
+#       max = optional(string)
+#       min = optional(string)
+#     }))
+#     tcp_options = optional(object({
+#       max = optional(string)
+#       min = optional(string)
+#     }))
+#     icmp_options = optional(object({
+#       type = optional(string)
+#       code = optional(string)
+#     }))
+#   }))
+#   description = "Custom ingress rules to add to the security group"
+#   default = []
+#   # validation {
+#   #   condition = anytrue([for rule in var.custom_ingress_rules :
+#   #       alltrue([rule.protocol == "6", rule.tcp_options != null, rule.udp_options == null, rule.icmp_options == null])
+#   #       # rule.protocol == "17" && rule.tcp_options == null && rule.udp_options != null && rule.icmp_options == null,
+#   #       # rule.protocol == "1" && rule.tcp_options == null && rule.udp_options == null && rule.icmp_options != null,
+#   #       # rule.protocol == "58" && rule.tcp_options == null && rule.udp_options == null && rule.icmp_options != null,
+#   #     ])
+#   #   error_message = "Rules must be specified with the appropriate _options map."
+#   # }
+# }
