@@ -68,12 +68,22 @@ resource "oci_core_security_list" "ampere_security_list" {
   }
 
   ingress_security_rules {
+    protocol = "6"
+    source   = "0.0.0.0/0"
+
+    tcp_options {
+      max = "22000"
+      min = "22000"
+    }
+  }
+
+  ingress_security_rules {
     protocol = "17"
     source   = "0.0.0.0/0"
 
     udp_options {
-      max = "20000"
-      min = "20000"
+      max = "22000"
+      min = "22000"
     }
   }
 
@@ -104,16 +114,6 @@ resource "oci_core_security_list" "ampere_security_list" {
     tcp_options {
       max = "22070"
       min = "22070"
-    }
-  }
-
-  ingress_security_rules {
-    protocol = "6"
-    source   = "0.0.0.0/0"
-
-    tcp_options {
-      max = "20000"
-      min = "20000"
     }
   }
 
