@@ -98,6 +98,16 @@ resource "oci_core_security_list" "ampere_security_list" {
   }
 
   ingress_security_rules {
+    protocol = "17"
+    source   = "0.0.0.0/0"
+
+    udp_options {
+      max = "51820"
+      min = "51820"
+    }
+  }
+
+  ingress_security_rules {
     protocol = "6"
     source   = "0.0.0.0/0"
 
