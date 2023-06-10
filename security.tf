@@ -142,6 +142,15 @@ resource "oci_core_security_list" "ampere_security_list" {
     }
   }
 
+  ingress_security_rules {
+    protocol = "1"
+    source   = "0.0.0.0/0"
+
+    icmp_options {
+      type = "8"
+    }
+  }
+
   # dynamic "ingress_security_rules" {
   #   for_each = {for rule in var.custom_ingress_rules: rule.description => rule }
   #   content {
