@@ -151,6 +151,26 @@ resource "oci_core_security_list" "ampere_security_list" {
     }
   }
 
+  ingress_security_rules {
+    protocol = "6"
+    source   = "0.0.0.0/0"
+
+    tcp_options {
+      max = "5201"
+      min = "5201"
+    }
+  }
+
+  ingress_security_rules {
+    protocol = "17"
+    source   = "0.0.0.0/0"
+
+    udp_options {
+      max = "5201"
+      min = "5201"
+    }
+  }
+
   # dynamic "ingress_security_rules" {
   #   for_each = {for rule in var.custom_ingress_rules: rule.description => rule }
   #   content {
