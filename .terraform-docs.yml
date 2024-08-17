@@ -20,7 +20,6 @@ sections:
 
 content: |-
     {{ .Header }}
-
     ### Example AlmaLinux 8
 
     ```hcl
@@ -31,6 +30,18 @@ content: |-
 
     ```hcl
     {{ include "examples/almalinux9/main.tf" }}
+    ```
+
+    ### Example RockyLinux 8
+
+    ```hcl
+    {{ include "examples/rockylinux8/main.tf" }}
+    ```
+
+    ### Example RockyLinux 9
+
+    ```hcl
+    {{ include "examples/rockylinux9/main.tf" }}
     ```
 
     ### Example FreeBSD 13.1
@@ -55,6 +66,12 @@ content: |-
 
     ```hcl
     {{ include "examples/oraclelinux8/main.tf" }}
+    ```
+
+    ### Example OracleLinux 9
+
+    ```hcl
+    {{ include "examples/oraclelinux9/main.tf" }}
     ```
 
     ### Example Ubuntu 18.04
